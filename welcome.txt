@@ -1,0 +1,21 @@
+The installer has started successfully.
+DO NOT make any modifications to the system from now on.
+
+Keep your system running, and make sure your Internet is connected and running 
+properly.
+
+================================
+    Welcome to Labs Portal
+  A Project by TheFlightSims
+================================
+
+Visit the project here: https://github.com/TheFlightSims/labs-portal
+Report vulnerabilities here: https://github.com/TheFlightSims/labs-portal/security
+
+This project cannot be done without the support of TheFlightSims and other 
+contributors. To see who contributed to this project, check out the following: 
+https://github.com/TheFlightSims/labs-portal/graphs/contributors.
+
+The project is linked with MIT license.
+
+For more details, see here: https://github.com/TheFlightSims/labs-portal/wiki

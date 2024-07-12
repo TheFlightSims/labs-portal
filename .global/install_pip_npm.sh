@@ -17,8 +17,7 @@ pip install ./.global/ext-pkg/*.whl --ignore-installed --no-deps
 
 echo -e "Disabling the classic mode"
 jupyter lab build
-jupyter labextension enable @jupyterlab/extensionmanager-extension
-jupyter labextension enable @jupyterlab/help-extension:launch-classic
+jupyter labextension disable @jupyterlab/extensionmanager-extension
 jupyter labextension update --all
 
 echo -e "Cleaning up caches..."

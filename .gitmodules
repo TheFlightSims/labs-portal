@@ -1,0 +1,9 @@
+[submodule ".global/tutorials-notebooks"]
+	path = .global/tutorials-notebooks
+	url = https://github.com/tfslabs/labs-portal-example-notebooks.git
+[submodule ".global/web-portal"]
+	path = .global/web-portal
+	url = https://github.com/tfslabs/labs-portal-web-portal.git
+[submodule ".global/ext-pkg"]
+	path = .global/ext-pkg
+	url = https://github.com/tfslabs/labs-portal-ext-pkg.git

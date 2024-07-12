@@ -62,7 +62,6 @@ chardet==5.2.0
 charset-normalizer==3.3.2
 clarabel==0.9.0
 clear==2.0.0
-cliapp==1.20180812.1
 click==8.1.7
 click-plugins==1.1.1
 cligj==0.7.2
@@ -70,7 +69,6 @@ clint==0.5.1
 cloudpickle==2.2.1
 clr-loader==0.2.6
 cmake==3.30.0
-cmdtest==0.32+git
 colorama==0.4.6
 colorcet==3.1.0
 coloredlogs==15.0.1
@@ -502,10 +500,6 @@ tomli==2.0.1
 tomlkit==0.13.0
 toolz==0.12.1
 tornado==6.4.1
-tox==4.16.0
-tqdm==4.66.4
-traitlets==5.14.3
-ttystatus==0.38
 tweedledum==1.1.1
 typeguard==4.3.0
 types-python-dateutil==2.9.0.20240316

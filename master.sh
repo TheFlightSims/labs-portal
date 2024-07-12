@@ -62,4 +62,4 @@ else
 	exit
 fi
 
-echo -e -n "[LABS PORTAL Docker Installation] The installation is finished!"
+echo "[LABS PORTAL Installation] The installation is finished!"

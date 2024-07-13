@@ -5,7 +5,7 @@ npm install -g configurable-http-proxy npm@10.8.2
 
 echo -e "Installing pre-builds"
 pip install --upgrade pip setuptools wheel manimlib pycairo
-pip install -r ./.global/pip_packages.txt --ignore-installed --no-deps
+pip install -r ./.global/pip_packages.txt --ignore-installed --default-timeout=360
 
 echo -e "Installing IBM-Q Packages"
 python3 -m build --verbose --wheel --outdir ./.global/ext-pkg --skip-dependency-check --no-isolation ./.global/ext-pkg/ibm-q-labs/ibm_q_lab_server_extension

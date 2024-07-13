@@ -29,8 +29,9 @@ else
 	exit
 fi
 
-chmod +x ./.global/*.sh && chmod +x ./linux/*.sh
-./.global/update_apt_repo.sh
+chmod +x ./linux/*.sh
+
+./linux/update_apt_repo.sh
 if [ $? -eq 0 ]; then
 	echo "[LABS PORTAL APT CP] APT Processes is finished."
 else
@@ -38,7 +39,7 @@ else
 	exit
 fi
 
-./.global/install_pip_npm.sh
+./linux/install_pip_npm.sh
 if [ $? -eq 0 ]; then
 	echo "[LABS PORTAL PIP+NPM CP] PIP+NPM Processes is finished."
 else
@@ -46,7 +47,7 @@ else
 	exit
 fi
 
-./.global/copy-configs.sh
+./linux/copy-configs.sh
 if [ $? -eq 0 ]; then
 	echo "[LABS PORTAL CF CP] Configuration copying is finished."
 else

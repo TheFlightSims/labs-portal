@@ -130,7 +130,7 @@ frozendict==2.4.4
 frozenlist==1.4.1
 fs==2.4.16
 fsspec==2024.6.1
-furo==2024.1.29
+furo==2024.5.6
 future==1.0.0
 gaqqie-door==0.2.0
 gast==0.5.5

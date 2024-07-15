@@ -14,7 +14,8 @@ python3 -m build --verbose --wheel --outdir ./.global/ext-pkg --skip-dependency-
 python3 -m build --verbose --wheel --outdir ./.global/ext-pkg --skip-dependency-check --no-isolation ./.global/ext-pkg/ibm-q-labs/ibmq_jupyter_server_health_ext
 python3 -m build --verbose --wheel --outdir ./.global/ext-pkg --skip-dependency-check --no-isolation ./.global/ext-pkg/ibm-q-labs/qiskit-kernel
 pip install ./.global/ext-pkg/*.whl --ignore-installed --no-deps
-#apt install -y sagemath-jupyter
+./linux/install_other_kernel.sh
+
 
 echo -e "Disabling the classic mode"
 jupyter lab build

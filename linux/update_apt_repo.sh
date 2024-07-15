@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo -e "Updating local APT Repos"
-./.global/reset_cache_to_install_node.sh
+./linux/reset_cache_to_install_node.sh
 apt install -y openssl pwgen netcat git nano nodejs yarn
 apt install -y gcc g++ gdb make cmake automake zip \
     libcurl4-gnutls-dev librtmp-dev sox ffmpeg libcairo2 \

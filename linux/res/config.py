@@ -17,8 +17,8 @@ def pre_spawn_hook(spawner):
         pwd.getpwnam(username)
     except KeyError:
         subprocess.check_call(['useradd', '-ms', '/bin/bash', username])
-        subprocess.check_call(['cp', '-TRv', '/etc/jupyter/tutorials-notebooks', f'/home/{username}'])
-        os.system(f'chmod 707 /home/{username}/jupyter-cpp-kernel-doc')
+        subprocess.check_call(['cp', '-TRv', '/etc/jupyter/tutorials-notebooks/jupyter-cpp-kernel-doc', f'/home/{username}/jupyter-cpp-kernel-doc'])
+        os.system(f'chown -R {username} /home/{username}/jupyter-cpp-kernel-doc')
 ###
 
 ##################################################################################################
@@ -46,7 +46,7 @@ c.JupyterHub.port = 80
 #c.JupyterHub.ssl_key = ########
 #c.JupyterHub.ssl_cert = #########
 c.JupyterHub.reset_db = False
-c.JupyterHub.init_spawners_timeout = 60
+c.JupyterHub.init_spawners_timeout = 120
 c.JupyterHub.terminals_enabled = True
 
 c.NotebookApp.terminals_enabled = True
@@ -55,8 +55,8 @@ c.NotebookApp.terminals_enabled = True
 # Native Authentication behaviour
 c.NativeAuthenticator.check_common_password = True
 c.NativeAuthenticator.minimum_password_length = 5
-c.NativeAuthenticator.allowed_failed_logins = 10
-c.NativeAuthenticator.seconds_before_next_try = 60
+c.NativeAuthenticator.allowed_failed_logins = 5
+c.NativeAuthenticator.seconds_before_next_try = 300
 c.NativeAuthenticator.enable_signup = True
 c.NativeAuthenticator.open_signup = True
 c.NativeAuthenticator.ask_email_on_signup = True
@@ -71,5 +71,5 @@ c.NativeAuthenticator.tos = 'I agree to <a href="https://github.com/TheFlightSim
 #----------------------------
 
 c.Spawner.cpu_limit = 1
-c.Spawner.mem_limit = '512M'
+c.Spawner.mem_limit = '1024M'
 c.Spawner.pre_spawn_hook = pre_spawn_hook

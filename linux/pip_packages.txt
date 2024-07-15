@@ -380,7 +380,7 @@ pydot==2.0.0
 pydub==0.25.1
 pyEPR-quantum==0.8.5.7
 pyflyby==1.9.4
-Pygments==2.14.0
+Pygments==2.18.0
 PyGObject==3.48.2
 PyJWT==2.8.0
 pylatexenc==2.10

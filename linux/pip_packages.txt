@@ -134,7 +134,7 @@ furo==2024.1.29
 future==1.0.0
 gaqqie-door==0.2.0
 gast==0.5.5
-gdspy==1.6.12
+gdspy==1.6.13
 geopandas==0.12.2
 gitdb==4.0.11
 GitPython==3.1.43

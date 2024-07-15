@@ -213,7 +213,7 @@ jupyterlab-autoversion==0.3.6
 jupyterlab-dash==0.1.0a3
 jupyterlab-drawio==0.9.0
 jupyterlab-execute-time==2.3.1
-jupyterlab-git==0.39.0
+jupyterlab-git==0.50.1
 jupyterlab-image-editor==0.1.0
 jupyterlab-language-pack-de-DE==4.2.post1
 jupyterlab-language-pack-es-ES==4.2.post1

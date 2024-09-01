@@ -25,7 +25,7 @@ def pre_spawn_hook(spawner):
 
 c = get_config()
 
-c.Authenticator.admin_users = {'administrator',}
+c.Authenticator.admin_users = {'administrator'}
 c.Authenticator.enable_auth_state = False
 c.Authenticator.auto_login_oauth2_authorize = False
 c.Authenticator.manage_groups = True

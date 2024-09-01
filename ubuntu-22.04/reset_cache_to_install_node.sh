@@ -1,8 +1,8 @@
 #!/bin/bash
 export DEBIAN_FRONTEND=noninteractive
-SCRSUFFIX="_18.x"
-NODENAME="Node.js 18.x"
-NODEREPO="node_18.x"
+SCRSUFFIX="_16.x"
+NODENAME="Node.js 16.x"
+NODEREPO="node_16.x"
 NODEPKG="nodejs"
 
 print_status() {

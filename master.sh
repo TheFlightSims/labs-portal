@@ -19,19 +19,26 @@ else
    exit
 fi
 
-CONFIRM="n"
-echo -n "Do you wish to start the installer [Y/N]?: "
-read -n 1 CONFIRM_INPUT
-if [[ "${CONFIRM_INPUT}" =~ ^[Yy]$ ]]; then
-	cat ./welcome.txt
+DISTRO_SEL="0"
+cat ./welcome.txt
+echo -n "Choose your offer: "
+read -n 1 DISTRO_SEL
+if [[ "${DISTRO_SEL}" =~ ^[1]$ ]]; then
+	DISTRO=ubuntu-22.04
 else
-	echo -e "Exiting the installer..."
+	echo -e "\nUser cancelled. Exiting..."
 	exit
 fi
 
-chmod +x ./linux/*.sh
+echo -e -n "\n"
+CONFIRM_FULL_INSTALL="n"
+echo -n "Do you want a full installation? [y/N]: "
+read -n 1 CONFIRM_FULL_INSTALL
 
-./linux/update_apt_repo.sh
+chmod +x ./$DISTRO/*.sh
+
+./$DISTRO/reset_cache_to_install_node.sh
+./$DISTRO/update_apt_repo.sh
 if [ $? -eq 0 ]; then
 	echo "[LABS PORTAL APT CP] APT Processes is finished."
 else
@@ -39,7 +46,7 @@ else
 	exit
 fi
 
-./linux/install_pip_npm.sh
+./$DISTRO/install_pip_npm.sh
 if [ $? -eq 0 ]; then
 	echo "[LABS PORTAL PIP+NPM CP] PIP+NPM Processes is finished."
 else
@@ -47,7 +54,12 @@ else
 	exit
 fi
 
-./linux/copy-configs.sh
+./$DISTRO/copy-configs.sh
+echo -e "Copying default SQLite"
+cp ./$DISTRO/res/jupyterhub.sqlite /etc/jupyter/
+echo -e "Copying standard configurations"
+cp ./$DISTRO/res/config.py /etc/jupyter/config.py
+chmod 700 /etc/jupyter
 if [ $? -eq 0 ]; then
 	echo "[LABS PORTAL CF CP] Configuration copying is finished."
 else
@@ -55,12 +67,23 @@ else
 	exit
 fi
 
-./linux/linux_install.sh
-if [ $? -eq 0 ]; then
-	echo "[LABS PORTAL LX CP] Linux customization copying is finished."
+if [[ "${CONFIRM_FULL_INSTALL}" =~ ^[Yy]$ ]]; then
+	echo -e -n "User selected full installation.\n\n"
+	./$DISTRO/install_extended.sh
+	if [ $? -eq 0 ]; then
+		echo "[LABS PORTAL EXT] Extended installation is finished."
+	else
+		echo "[LABS PORTAL EXT] Extended installation is failed. Failing the installer..."
+		exit
+	fi
 else
-	echo "[LABS PORTAL LX CP] Linux customization copying is failed. Failing the installer..."
-	exit
+	echo -e -n "User selected minimal installation. \nTherefore, extended Jupyter kernels, NVIDIA CUDA, and AI frameworks will not be installed.\n\n"
 fi
+
+echo -e "Cleaning up caches..."
+apt autoremove -y
+apt autoclean
+apt clean
+pip cache purge
 
 echo "[LABS PORTAL Installation] The installation is finished!"

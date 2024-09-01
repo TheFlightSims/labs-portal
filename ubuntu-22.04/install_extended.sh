@@ -19,7 +19,7 @@ for i in liblua5.3-0 liblua5.3-0-dbg liblua5.3-dev lua5.3; do apt install -y $i;
 pip install ilua
 
 # octave kernel
-for i in python3-octave-kernel; do apt install -y $i; done
+apt install -y python3-octave-kernel
 
 # r-kernel
 for i in r-cran-irdisplay r-cran-irkernel; do apt install -y $i; done

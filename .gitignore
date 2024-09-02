@@ -3,3 +3,5 @@
 *.out
 *.bin
 *cookie_secret*
+
+.cache

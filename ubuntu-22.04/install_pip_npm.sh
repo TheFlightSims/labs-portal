@@ -4,7 +4,7 @@ echo -e "Installing NPM Packages"
 npm install -g configurable-http-proxy
 
 echo -e "Installing pre-builds"
-for ins in pip setuptools wheel manimlib pycairo; do
+for ins in pip setuptools wheel pycairo; do
     pip install $ins --ignore-installed --default-timeout=360 || continue;
 done
 
@@ -23,4 +23,3 @@ pip install ./.global/ext-pkg/*.whl --ignore-installed --no-deps
 echo -e "Disabling the classic mode"
 jupyter lab build
 jupyter labextension disable @jupyterlab/extensionmanager-extension
-jupyter labextension update --all

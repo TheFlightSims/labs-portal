@@ -6,6 +6,7 @@ cutensor-cu11==2.0.2
 cutensor-cu12==2.0.2
 cutensornet-cu11==2.4.0.post1
 cutensornet-cu12==2.4.0.post1
+ilua
 nvidia-cublas-cu11==11.11.3.6
 nvidia-cublas-cu12==12.5.3.2
 nvidia-cuda-runtime-cu11==11.8.89

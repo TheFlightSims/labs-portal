@@ -17,7 +17,7 @@ def pre_spawn_hook(spawner):
         pwd.getpwnam(username)
     except KeyError:
         subprocess.check_call(['useradd', '-ms', '/bin/bash', username])
-        subprocess.check_call(['cp', '-TRv', '/etc/jupyter/tutorials-notebooks/jupyter-cpp-kernel-doc', f'/home/{username}/jupyter-cpp-kernel-doc'])
+        subprocess.check_call(['cp', '-TRv', '/etc/labs_portal/tutorials-notebooks/jupyter-cpp-kernel-doc', f'/home/{username}/jupyter-cpp-kernel-doc'])
         os.system(f'chown -R {username} /home/{username}/jupyter-cpp-kernel-doc')
 ###
 
@@ -32,15 +32,15 @@ c.Authenticator.manage_groups = True
 
 c.Application.log_level = 'DEBUG'
 
-c.ConfigurableHTTPProxy.auth_token = '/etc/jupyter/proxy_auth_token'
+c.ConfigurableHTTPProxy.auth_token = '/etc/labs_portal/proxy_auth_token'
 
 c.PAMAuthenticator.admin_groups = {'administrators'}
 
 c.JupyterHub.authenticator_class = 'nativeauthenticator.NativeAuthenticator'
 c.JupyterHub.api_page_default_limit = 3
-c.JupyterHub.cookie_secret_file = '/etc/jupyter/jupyterhub_cookie_secret'
+c.JupyterHub.cookie_secret_file = '/etc/labs_portal/cookie_secret'
 c.JupyterHub.default_url = '/hub/home'
-c.JupyterHub.db_url = 'sqlite:////etc//jupyter//jupyterhub.sqlite'
+c.JupyterHub.db_url = 'sqlite:////etc//labs_portal//labs_portal.sqlite'
 c.JupyterHub.debug_db = True
 c.JupyterHub.port = 80
 #c.JupyterHub.ssl_key = ########

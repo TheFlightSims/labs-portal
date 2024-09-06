@@ -8,7 +8,11 @@ for i in openssl pwgen git nano nodejs yarn automake gcc \
          librtmp-dev ffmpeg libcairo2 libcairo2-dev pari-gp \
          libgirepository1.0-dev libhdf5-dev python3 \
          python3-pip python3-venv python3-build; do
-  apt install -y $i || continue;
+  apt install -y $i
+  if [ $? -ne 0 ]; then
+    echo "Error installing $i. Retrying..."
+    apt update && apt full-upgrade -y && apt --fix-broken install -y && apt install -y $i
+  fi
 done
 
 apt --fix-broken install

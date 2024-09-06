@@ -56,10 +56,10 @@ fi
 
 ./$DISTRO/copy-configs.sh
 echo -e "Copying default SQLite"
-cp ./$DISTRO/res/jupyterhub.sqlite /etc/jupyter/
+cp ./$DISTRO/res/labs_portal.sqlite /etc/labs_portal/
 echo -e "Copying standard configurations"
-cp ./$DISTRO/res/config.py /etc/jupyter/config.py
-chmod 700 /etc/jupyter
+cp ./$DISTRO/res/config.py /etc/labs_portal/config.py
+chmod 700 /etc/labs_portal
 if [ $? -eq 0 ]; then
 	echo "[LABS PORTAL CF CP] Configuration copying is finished."
 else

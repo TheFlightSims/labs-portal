@@ -11,6 +11,7 @@ distributed==2024.7.0
 fiona==1.9.6
 Flask==3.0.3
 iqm-client==17.7
+jlab-enhanced-cell-toolbar==3.5.1
 jupyter==1.0.0
 jupyter-archive==3.4.0
 jupyter-console==6.6.3
@@ -170,5 +171,16 @@ scikit-build==0.18.0
 scikit-image==0.24.0
 scikit-learn==1.5.1
 shapely==2.0.1
+sphinx-basic-ng==1.0.0b2
+sphinx-rtd-theme==2.0.0
+sphinxcontrib-applehelp==1.0.8
+sphinxcontrib-devhelp==1.0.6
+sphinxcontrib-htmlhelp==2.0.5
+sphinxcontrib-jquery==4.1
+sphinxcontrib-jsmath==1.0.1
+sphinxcontrib-qthelp==1.0.7
+sphinxcontrib-serializinghtml==1.1.10
+SQLAlchemy==2.0.31
+ssh-import-id==5.11
 urllib3==1.26.19
 voila==0.5.7

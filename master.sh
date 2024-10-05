@@ -54,7 +54,8 @@ else
 	exit
 fi
 
-./$DISTRO/copy-configs.sh
+./$DISTRO/auth.sh
+./$DISTRO/web_install.sh
 echo -e "Copying default SQLite"
 cp ./$DISTRO/res/labs_portal.sqlite /etc/labs_portal/
 echo -e "Copying standard configurations"

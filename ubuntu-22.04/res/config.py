@@ -46,8 +46,9 @@ c.JupyterHub.port = 80
 #c.JupyterHub.ssl_key = ########
 #c.JupyterHub.ssl_cert = #########
 c.JupyterHub.reset_db = False
-c.JupyterHub.init_spawners_timeout = 120
+c.JupyterHub.init_spawners_timeout = 300
 c.JupyterHub.terminals_enabled = True
+c.JupyterHub.template_paths = ['/etc/labs_portal/web/base']
 
 c.NotebookApp.terminals_enabled = True
 

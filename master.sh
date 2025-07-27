@@ -10,13 +10,13 @@ echo -e "Starting the installer...\n"
 echo -e -n "The installer is running within the path: $PWD\n\n" 
 
 if [ -f ./.global/ext-pkg/_is_cloning_properly ] && \
-   [ -f ./.global/tutorials-notebooks/_is_cloning_properly ] && \
-   [ -f ./.global/tutorials-notebooks/jupyter-cpp-kernel-doc/_is_cloning_properly ] && \
-   [ -f ./.global/web-portal/_is_cloning_properly ]; then
-   echo "..."
+	[ -f ./.global/tutorials-notebooks/_is_cloning_properly ] && \
+	[ -f ./.global/tutorials-notebooks/jupyter-cpp-kernel-doc/_is_cloning_properly ] && \
+	[ -f ./.global/web-portal/_is_cloning_properly ]; then
+	echo "..."
 else
-   echo "Failed to check the current git status. Failing the installer"
-   exit
+	echo "Failed to check the current git status. Failing the installer"
+	exit
 fi
 
 DISTRO_SEL="0"
@@ -25,19 +25,20 @@ echo -n "Choose your offer: "
 read -n 1 DISTRO_SEL
 if [[ "${DISTRO_SEL}" =~ ^[1]$ ]]; then
 	DISTRO=ubuntu-22.04
+elif [[ "${DISTRO_SEL}" =~ ^[2]$ ]]; then
+	DISTRO=ubuntu-24.04
 else
-	echo -e "\nUser cancelled. Exiting..."
+	echo -e "\nInvalid selection. Exiting..."
 	exit
 fi
 
 echo -e -n "\n"
 CONFIRM_FULL_INSTALL="n"
-echo -n "Do you want a full installation? [y/N]: "
+echo -n "Do you want a full installation (Default is No)? [y/N]: "
 read -n 1 CONFIRM_FULL_INSTALL
 
 chmod +x ./$DISTRO/*.sh
 
-./$DISTRO/reset_cache_to_install_node.sh
 ./$DISTRO/update_apt_repo.sh
 if [ $? -eq 0 ]; then
 	echo "[LABS PORTAL APT CP] APT Processes is finished."
@@ -88,3 +89,5 @@ apt clean
 pip cache purge
 
 echo "[LABS PORTAL Installation] The installation is finished!"
+
+## Create mongdb user and database

@@ -12,13 +12,15 @@ for i in cuda-drivers-fabricmanager-550 libcub-dev \
   fi
 done
 
-for pkg in $(cat ./.global/pip_extended.txt); do 
-  pip install $pkg --ignore-installed --default-timeout=3600 || continue; 
-  if [ $? -ne 0 ]; then
-    echo -e -n "\nError while installing extended packaes, retrying...\n"
-    pip install $pkg --ignore-installed --default-timeout=3600 || continue; 
-  fi
-done
+echo -e "Installing extended Python packages"
+while IFS= read -r pkg; do
+    
+    if [[ -z "$pkg" || "$pkg" =~ ^# ]]; then
+        continue
+    fi
+
+    pip install "$pkg" --default-timeout=360 --force-reinstall --break-system-packages
+done < ./.global/pip_extended.txt
 
 # javascript
 npm install -g --unsafe-perm ijavascript

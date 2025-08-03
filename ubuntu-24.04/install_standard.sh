@@ -227,5 +227,5 @@ WantedBy=multi-user.target
 EOF
 
 systemctl daemon-reload
-systemctl enable --now labs_portal
+systemctl enable labs_portal
 echo -e "Labs Portal service installed and started successfully."

@@ -34,18 +34,18 @@ npm install -g configurable-http-proxy
 
 echo -e "Installing pre-builds"
 for ins in pip setuptools wheel; do
-    pip install "$ins" --default-timeout=360 --break-system-packages;
+    pip install "$ins" --default-timeout=360 --break-system-packages --ignore-installed;
     while [ $? -ne 0 ]; do
         echo -e -n "Error while installing $ins. Retrying...";
-        pip install "$ins" --default-timeout=360 --break-system-packages;
+        pip install "$ins" --default-timeout=360 --break-system-packages --ignore-installed;
     done
 done
 
 echo -e "Installing base packages"
-pip install -r ./.global/pip_base.txt --default-timeout=360 --break-system-packages
+pip install -r ./.global/pip_base.txt --default-timeout=360 --break-system-packages --ignore-installed
 while [ $? -ne 0 ]; do
     echo -e -n "Error while installing base packages. Retrying...";
-    pip install -r ./.global/pip_base.txt --default-timeout=360 --break-system-packages;
+    pip install -r ./.global/pip_base.txt --default-timeout=360 --break-system-packages --ignore-installed;
 done
 
 echo -e "Building IBM-Q Packages"

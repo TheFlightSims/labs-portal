@@ -3,9 +3,6 @@
 set -euo pipefail
 
 CURR_DIR="$(cd "$(dirname "$0")" && pwd)"
-LOGFILE="./logs/install.log"
-mkdir -p "$(dirname "${LOGFILE}")"
-exec > >(tee -a "${LOGFILE}") 2>&1
 
 trap 'echo "Error occurred at line ${LINENO}. Exiting..." | tee -a "${LOGFILE}"; exit 1' ERR
 

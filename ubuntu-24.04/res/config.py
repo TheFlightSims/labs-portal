@@ -1,4 +1,4 @@
-from os import environ, system
+from os import environ
 from dotenv import load_dotenv
 from pwd import getpwnam
 from random import choice

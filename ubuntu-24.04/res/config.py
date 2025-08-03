@@ -27,7 +27,8 @@ def pre_spawn_hook(spawner):
     except KeyError:
         check_call(['useradd', '-ms', '/bin/bash', username])
         check_call(['cp', '-TRv', '/etc/labs_portal/tutorials-notebooks/jupyter-cpp-kernel-doc', f'/home/{username}/jupyter-cpp-kernel-doc'])
-        system(f'chown -R {username} /home/{username}/jupyter-cpp-kernel-doc')
+        check_call(['chown','-R',username,f'/home/{username}/jupyter-cpp-kernel-doc'])
+        check_call(['chmod','-R','u+rwX,go-rwx',f'/home/{username}/jupyter-cpp-kernel-doc'])
 ###
 
 ##################################################################################################

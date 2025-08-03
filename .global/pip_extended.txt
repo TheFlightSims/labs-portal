@@ -11,4 +11,3 @@ nvidia-nvjitlink-cu12>=12.9.86
 
 # Extended Language Support
 ilua>=0.2.1
-qiskit-aer-gpu>=0.15.0

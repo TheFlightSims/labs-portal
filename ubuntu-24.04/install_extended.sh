@@ -23,10 +23,10 @@ for i in cuda-drivers-fabricmanager-550 libcub-dev \
 done
 
 echo -e "Installing extended Python packages"
-pip install -r ./.global/pip_extended.txt --default-timeout=360 --break-system-packages
+pip install -r ./.global/pip_extended.txt --default-timeout=360 --break-system-packages --ignore-installed
 while [ $? -ne 0 ]; do
     echo -e -n "Error while installing extended packages. Retrying...";
-    pip install -r ./.global/pip_extended.txt --default-timeout=360 --break-system-packages;
+    pip install -r ./.global/pip_extended.txt --default-timeout=360 --break-system-packages --ignore-installed;
 done
 
 # javascript

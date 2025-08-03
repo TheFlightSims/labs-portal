@@ -14,11 +14,11 @@ apt update && apt full-upgrade -y
 for i in openssl pwgen git nano nodejs yarn automake gcc \
         g++ gdb make cmake zip libcurl4-gnutls-dev sox \
         librtmp-dev ffmpeg libcairo2 libcairo2-dev pari-gp \
-        libgirepository1.0-dev libhdf5-dev python3 \
-        python3-pip python3-venv python3-build libtool \
-        build-essential autoconf ninja-build flex bison dkms \
+        libgirepository1.0-dev libhdf5-dev python3 python3-pip \
+        python3-venv python3-build python3-setuptools \
+        python3-wheel libtool build-essential autoconf \
         linux-headers-$(uname -r) ccache cppcheck 7zip gzip \
-        tar npm; do
+        tar npm flex bison dkms ninja-build; do
     apt install -y $i
     while [ $? -ne 0 ]; do
         echo "Error installing $i. Retrying..."
@@ -32,15 +32,6 @@ apt --fix-broken install
 echo -e "Installing NPM Packages"
 npm install -g configurable-http-proxy
 
-echo -e "Installing pre-builds"
-for ins in pip setuptools wheel; do
-    pip install "$ins" --default-timeout=360 --break-system-packages --ignore-installed;
-    while [ $? -ne 0 ]; do
-        echo -e -n "Error while installing $ins. Retrying...";
-        pip install "$ins" --default-timeout=360 --break-system-packages --ignore-installed;
-    done
-done
-
 echo -e "Installing base packages"
 pip install -r ./.global/pip_base.txt --default-timeout=360 --break-system-packages --ignore-installed
 while [ $? -ne 0 ]; do
@@ -48,17 +39,9 @@ while [ $? -ne 0 ]; do
     pip install -r ./.global/pip_base.txt --default-timeout=360 --break-system-packages --ignore-installed;
 done
 
-echo -e "Building IBM-Q Packages"
-for ibmqpkg in ibm_q_lab_server_extension ibm_q_lab_ui_extensions ibm_quantum_widgets ibmq_jupyter_server_health_ext qiskit-kernel; do
-    python3 -m build --wheel --outdir ./.global/ext-pkg --skip-dependency-check --no-isolation --force ./.global/ext-pkg/ibm-q-labs/$ibmqpkg
-done
-pip install ./.global/ext-pkg/*.whl --ignore-installed --no-deps --force-reinstall --break-system-packages
-
-echo -e "Disabling the classic mode"
+echo -e "Building JupyterLab within NodeJS environment"
 jupyter lab build
-jupyter labextension disable @jupyterlab/extensionmanager
 
-echo -e "Copying auth"
 mkdir -p /etc/labs_portal/
 
 echo -e "Creating authenticator"
@@ -95,9 +78,6 @@ mkdir -p /etc/labs_portal/web/extensions && mkdir -p /etc/labs_portal/web/base
 ln -s /etc/labs_portal/web/base/templates /usr/local/share/jupyterhub/templates
 ln -s /etc/labs_portal/web/base/static /usr/local/share/jupyterhub/static
 cp -TRv ./.global/web-portal/hub-login /etc/labs_portal/web/base
-
-echo -e "Copying default SQLite"
-cp ./$CURR_DIR/res/labs_portal.sqlite /etc/labs_portal/
 
 echo -e "Copying standard configurations"
 cp ./$CURR_DIR/res/config.py /etc/labs_portal/config.py

@@ -13,8 +13,7 @@ cd "$SCRIPT_DIR"
 echo -e "Starting the installer...\n"
 echo -e -n "The installer is running within the path: $PWD\n\n" 
 
-if [ -f ./.global/ext-pkg/_is_cloning_properly ] && \
-	[ -f ./.global/tutorials-notebooks/_is_cloning_properly ] && \
+if  [ -f ./.global/tutorials-notebooks/_is_cloning_properly ] && \
 	[ -f ./.global/tutorials-notebooks/jupyter-cpp-kernel-doc/_is_cloning_properly ] && \
 	[ -f ./.global/web-portal/_is_cloning_properly ]; then
 	echo "..."

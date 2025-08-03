@@ -4,7 +4,7 @@ set -euo pipefail
 
 CURR_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-trap 'echo "Error occurred at line ${LINENO}. Exiting..." | tee -a "${LOGFILE}"; exit 1' ERR
+trap 'echo "Error occurred at line ${LINENO}. Exiting..."; exit 1' ERR
 
 (( EUID == 0 )) || { echo "Please run as root"; exit 1; }
 

@@ -39,9 +39,6 @@ while [ $? -ne 0 ]; do
     pip install -r ./.global/pip_base.txt --default-timeout=360 --break-system-packages --ignore-installed;
 done
 
-echo -e "Building JupyterLab within NodeJS environment"
-jupyter lab build
-
 mkdir -p /etc/labs_portal/
 
 echo -e "Creating authenticator"

@@ -1,7 +1,5 @@
 ========================================================
-|                                                      |
 |               WARNING - BEFORE INSTALL               |
-|                                                      |
 ========================================================
 
 IT IS RECOMMENDED THAT LABS PORTAL CAN ONLY BE INSTALLED
@@ -25,8 +23,7 @@ connected and running  properly.
 
 Main dist: https://github.com/TheFlightSims/labs-portal
 Wiki: https://github.com/TheFlightSims/labs-portal/wiki
-Report Vulnerabilities: 
-https://github.com/TheFlightSims/labs-portal/security
+Report Vulnerabilities: https://github.com/TheFlightSims/labs-portal/security
 
 The project is linked with MIT license.
 

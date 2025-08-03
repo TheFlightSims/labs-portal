@@ -37,6 +37,8 @@ CONFIRM_FULL_INSTALL="n"
 echo -n "Do you want a full installation (Default is No)? [y/N]: "
 read -n 1 CONFIRM_FULL_INSTALL
 
+echo -e "\n"
+
 chmod +x ./$DISTRO/*.sh
 
 ./$DISTRO/update_apt_repo.sh

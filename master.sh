@@ -1,14 +1,20 @@
 #!/bin/bash
 
 set -euo pipefail
-
-CURR_DIR="$(cd "$(dirname "$0")" && pwd)"
-
 trap 'echo "Error occurred at line ${LINENO} of ${BASH_SOURCE[0]}. Exiting..."; exit 1' ERR
 
-(( EUID == 0 )) || { echo "Please run as root"; exit 1; }
-
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+if [ "$EUID" -ne 0 ]; then
+	echo "Please run as root"
+	exit 1
+fi
+
+if [[ "$SCRIPT_DIR" == *" "* ]]; then
+	echo "The directory name '$SCRIPT_DIR' contains spaces. Exiting..."
+	exit 1
+fi
+
 cd "$SCRIPT_DIR"
 echo -e "Starting the installer...\n"
 echo -e -n "The installer is running within the path: $PWD\n\n" 

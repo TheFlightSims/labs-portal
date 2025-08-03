@@ -1,12 +1,14 @@
 #!/bin/bash
 
 set -euo pipefail
+trap 'echo "Error occurred at line ${LINENO} of ${BASH_SOURCE[0]}. Exiting..."; exit 1' ERR
 
 CURR_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-trap 'echo "Error occurred at line ${LINENO} of ${BASH_SOURCE[0]}. Exiting..."; exit 1' ERR
-
-(( EUID == 0 )) || { echo "Please run as root"; exit 1; }
+if [ "$EUID" -ne 0 ]; then
+	echo "Please run as root"
+	exit 1
+fi
 
 for i in cuda-drivers-fabricmanager-550 libcub-dev \
           nvidia-cuda-dev liblua5.3-0 liblua5.3-0-dbg \

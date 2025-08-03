@@ -1,12 +1,14 @@
 #!/bin/bash
 
 set -euo pipefail
+trap 'echo "Error occurred at line ${LINENO} of ${BASH_SOURCE[0]}. Exiting..."; exit 1' ERR
 
 CURR_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-trap 'echo "Error occurred at line ${LINENO} of ${BASH_SOURCE[0]}. Exiting..."; exit 1' ERR
-
-(( EUID == 0 )) || { echo "Please run as root"; exit 1; }
+if [ "$EUID" -ne 0 ]; then
+	echo "Please run as root"
+	exit 1
+fi
 
 echo -e "Updating local APT Repos"
 apt update && apt full-upgrade -y
@@ -75,8 +77,8 @@ ln -s /etc/labs_portal/web/base/static /usr/local/share/jupyterhub/static
 cp -TRv ./.global/web-portal/hub-login /etc/labs_portal/web/base
 
 echo -e "Copying standard configurations"
-cp ./$CURR_DIR/res/config.py /etc/labs_portal/config.py
-cp ./$CURR_DIR/res/.env /etc/labs_portal/.env
+cp $CURR_DIR/res/config.py /etc/labs_portal/config.py
+cp $CURR_DIR/res/.env /etc/labs_portal/.env
 
 chmod 700 /etc/labs_portal
 if [ $? -eq 0 ]; then

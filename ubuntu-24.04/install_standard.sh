@@ -15,7 +15,10 @@ for i in openssl pwgen git nano nodejs yarn automake gcc \
         g++ gdb make cmake zip libcurl4-gnutls-dev sox \
         librtmp-dev ffmpeg libcairo2 libcairo2-dev pari-gp \
         libgirepository1.0-dev libhdf5-dev python3 \
-        python3-pip python3-venv python3-build; do
+        python3-pip python3-venv python3-build libtool \
+        build-essential autoconf ninja-build flex bison dkms \
+        linux-headers-$(uname -r) ccache cppcheck 7zip gzip \
+        tar npm; do
     apt install -y $i
     while [ $? -ne 0 ]; do
         echo "Error installing $i. Retrying..."
@@ -58,7 +61,6 @@ jupyter labextension disable @jupyterlab/extensionmanager
 echo -e "Copying auth"
 mkdir -p /etc/labs_portal/
 
-# Create cookie secret file and proxy authenticator
 echo -e "Creating authenticator"
 touch /etc/labs_portal/proxy_auth_token
 chown :sudo /etc/labs_portal/proxy_auth_token
@@ -71,7 +73,17 @@ openssl rand -hex 32 > /etc/labs_portal/cookie_secret
 chmod 600 /etc/labs_portal/cookie_secret
 chmod 600 /etc/labs_portal/proxy_auth_token
 
-echo -e "Coping tutorial notebooks into global folder..."
+echo -e "Creating SSL certificate"
+mkdir -p /etc/labs_portal/ssl
+openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
+    -keyout /etc/labs_portal/ssl/labs_portal.key \
+    -out /etc/labs_portal/ssl/labs_portal.crt \
+    -subj "/C=US/ST=FL/L=Miami/O=TheFlightSims/CN=localhost"
+echo -e "Setting permissions for SSL certificate"
+chmod 600 /etc/labs_portal/ssl/labs_portal.key
+chmod 644 /etc/labs_portal/ssl/labs_portal.crt
+
+echo -e "Copying tutorial notebooks into global folder..."
 mkdir -p /etc/labs_portal/tutorials-notebooks
 cp -TRv ./.global/tutorials-notebooks /etc/labs_portal/tutorials-notebooks
 chmod 740 /etc/labs_portal/tutorials-notebooks
@@ -89,6 +101,7 @@ cp ./$CURR_DIR/res/labs_portal.sqlite /etc/labs_portal/
 
 echo -e "Copying standard configurations"
 cp ./$CURR_DIR/res/config.py /etc/labs_portal/config.py
+cp ./$CURR_DIR/res/.env /etc/labs_portal/.env
 
 chmod 760 /etc/labs_portal
 if [ $? -eq 0 ]; then
@@ -205,6 +218,7 @@ After=network.target
 
 [Service]
 Type=simple
+WorkingDirectory=/etc/labs_portal
 ExecStart=/usr/bin/python3 jupyterhub -f /etc/labs_portal/config.py
 Restart=on-failure
 

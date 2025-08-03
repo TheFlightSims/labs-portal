@@ -56,7 +56,8 @@ c.JupyterHub.cookie_secret_file = '/etc/labs_portal/cookie_secret'
 mysql_user = environ.get("JHUB_MYSQL_USER")
 mysql_password = environ.get("JHUB_MYSQL_PASSWORD")
 mysql_database = environ.get("JHUB_MYSQL_DATABASE")
-c.JupyterHub.db_url = f'mysql://{mysql_user}:{mysql_password}@localhost/{mysql_database}?charset=utf8mb4'
+mysql_server = environ.get("JHUB_MYSQL_HOST")
+c.JupyterHub.db_url = f'mysql://{mysql_user}:{mysql_password}@{mysql_server}/{mysql_database}?charset=utf8mb4'
 
 c.JupyterHub.debug_db = False
 
@@ -69,7 +70,7 @@ c.JupyterHub.ssl_cert = environ.get("JHUB_SSL_CERT")
 c.JupyterHub.reset_db = False
 c.JupyterHub.init_spawners_timeout = 300
 c.JupyterHub.terminals_enabled = False
-# c.JupyterHub.template_paths = ['/etc/labs_portal/web/base']
+c.JupyterHub.template_paths = ['/etc/labs_portal/web/base']
 
 c.NotebookApp.terminals_enabled = False
 
@@ -80,7 +81,7 @@ c.NativeAuthenticator.seconds_before_next_try = 300
 c.NativeAuthenticator.enable_signup = True
 c.NativeAuthenticator.open_signup = True
 c.NativeAuthenticator.ask_email_on_signup = False
-c.NativeAuthenticator.allow_self_approval_for = r'\b[A-Za-z0-9._%+-]+@(homelab\.local|)\b'
+#c.NativeAuthenticator.allow_self_approval_for = r'\b[A-Za-z0-9._%+-]+@(homelab\.local|)\b'
 c.NativeAuthenticator.secret_key = randomword(44)
 c.NativeAuthenticator.allow_2fa = True
 

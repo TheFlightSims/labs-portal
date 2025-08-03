@@ -1,26 +1,34 @@
 #!/bin/bash
 
-# NVIDIA CUDA, AI frameworks, and extended kernels
+set -euo pipefail
+
+CURR_DIR="$(cd "$(dirname "$0")" && pwd)"
+LOGFILE="./logs/install.log"
+mkdir -p "$(dirname "${LOGFILE}")"
+exec > >(tee -a "${LOGFILE}") 2>&1
+
+trap 'echo "Error occurred at line ${LINENO}. Exiting..." | tee -a "${LOGFILE}"; exit 1' ERR
+
+(( EUID == 0 )) || { echo "Please run as root"; exit 1; }
+
 for i in cuda-drivers-fabricmanager-550 libcub-dev \
           nvidia-cuda-dev liblua5.3-0 liblua5.3-0-dbg \
           liblua5.3-dev lua5.3 r-cran-irdisplay \
           r-cran-irkernel python3-octave-kernel; do
   apt install -y $i
-  if [ $? -ne 0 ]; then
+  while [ $? -ne 0 ]; do
     echo -e -n "Unable to install $i, retrying..."
-    apt update && apt full-upgrade -y && apt --fix-broken install -y && apt install -y $i 
-  fi
+    sleep 5
+    apt install -y $i
+  done
 done
 
 echo -e "Installing extended Python packages"
-while IFS= read -r pkg; do
-    
-    if [[ -z "$pkg" || "$pkg" =~ ^# ]]; then
-        continue
-    fi
-
-    pip install "$pkg" --default-timeout=360 --force-reinstall --break-system-packages
-done < ./.global/pip_extended.txt
+pip install -r ./.global/pip_extended.txt --default-timeout=360 --break-system-packages
+while [ $? -ne 0 ]; do
+    echo -e -n "Error while installing extended packages. Retrying...";
+    pip install -r ./.global/pip_extended.txt --default-timeout=360 --break-system-packages;
+done
 
 # javascript
 npm install -g --unsafe-perm ijavascript

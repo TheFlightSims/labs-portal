@@ -1,8 +1,15 @@
 #!/bin/bash
-if [ "$EUID" -ne 0 ]
-	then echo -e "Please run the script as root, or using sudo\n"
-	exit
-fi
+
+set -euo pipefail
+
+CURR_DIR="$(cd "$(dirname "$0")" && pwd)"
+LOGFILE="./logs/install.log"
+mkdir -p "$(dirname "${LOGFILE}")"
+exec > >(tee -a "${LOGFILE}") 2>&1
+
+trap 'echo "Error occurred at line ${LINENO}. Exiting..." | tee -a "${LOGFILE}"; exit 1' ERR
+
+(( EUID == 0 )) || { echo "Please run as root"; exit 1; }
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR"
@@ -24,8 +31,6 @@ cat ./welcome.txt
 echo -n "Choose your offer: "
 read -n 1 DISTRO_SEL
 if [[ "${DISTRO_SEL}" =~ ^[1]$ ]]; then
-	DISTRO=ubuntu-22.04
-elif [[ "${DISTRO_SEL}" =~ ^[2]$ ]]; then
 	DISTRO=ubuntu-24.04
 else
 	echo -e "\nInvalid selection. Exiting..."
@@ -41,35 +46,7 @@ echo -e "\n"
 
 chmod +x ./$DISTRO/*.sh
 
-./$DISTRO/update_apt_repo.sh
-if [ $? -eq 0 ]; then
-	echo "[LABS PORTAL APT CP] APT Processes is finished."
-else
-	echo "[LABS PORTAL APT CP] APT Processes is failed. Failing the installer..."
-	exit
-fi
-
-./$DISTRO/install_pip_npm.sh
-if [ $? -eq 0 ]; then
-	echo "[LABS PORTAL PIP+NPM CP] PIP+NPM Processes is finished."
-else
-	echo "[LABS PORTAL PIP+NPM CP] PIP+NPM Processes is failed. Failing the installer..."
-	exit
-fi
-
-./$DISTRO/auth.sh
-./$DISTRO/web_install.sh
-echo -e "Copying default SQLite"
-cp ./$DISTRO/res/labs_portal.sqlite /etc/labs_portal/
-echo -e "Copying standard configurations"
-cp ./$DISTRO/res/config.py /etc/labs_portal/config.py
-chmod 700 /etc/labs_portal
-if [ $? -eq 0 ]; then
-	echo "[LABS PORTAL CF CP] Configuration copying is finished."
-else
-	echo "[LABS PORTAL CF CP] Configuration copying is failed. Failing the installer..."
-	exit
-fi
+./$DISTRO/install_standard.sh
 
 if [[ "${CONFIRM_FULL_INSTALL}" =~ ^[Yy]$ ]]; then
 	echo -e -n "User selected full installation.\n\n"
@@ -91,5 +68,3 @@ apt clean
 pip cache purge
 
 echo "[LABS PORTAL Installation] The installation is finished!"
-
-## Create mongdb user and database

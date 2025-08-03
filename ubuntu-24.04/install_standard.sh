@@ -27,8 +27,6 @@ for i in openssl pwgen git nano nodejs yarn automake gcc \
     done
 done
 
-apt --fix-broken install
-
 echo -e "Installing NPM Packages"
 npm install -g configurable-http-proxy
 

@@ -2,7 +2,7 @@
 openpulse>=1.0.1
 openqasm3>=1.0.1
 pyEPR-quantum>=0.9.0
-pyscf>=2.9.0
+pyscf>=2.10.0
 qiskit-addon-cutting>=0.10.0
 qiskit-addon-mpf>=0.3.0
 qiskit-addon-obp>=0.3.0
@@ -11,8 +11,8 @@ qiskit-aer>=0.17.1
 qiskit-basis-constructor>=0.1.0
 qiskit-code-assistant-jupyterlab>=0.6.0
 qiskit-ibm-provider>=0.11.0
-qiskit-ibm-runtime>=0.40.1
-qiskit-ibm-transpiler>=0.13.0
+qiskit-ibm-runtime>=0.41.0
+qiskit-ibm-transpiler>=0.13.1
 qiskit-machine-learning>=0.8.3
 qiskit-qasm3-import>=0.6.0
 qiskit-rng>=0.2.2
@@ -61,7 +61,7 @@ lckr_jupyterlab_variableinspector>=3.2.4
 jupyterhub>=5.3.0
 jupyterhub-nativeauthenticator>=1.3.0
 PyMySQL>=1.1.1
-SQLAlchemy>=2.0.41
+SQLAlchemy>=2.0.42
 onetimepass>=1.0.1
 
 # Jupyter language kernel

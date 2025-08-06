@@ -18,9 +18,9 @@ for i in openssl pwgen git nano nodejs yarn automake gcc \
         librtmp-dev ffmpeg libcairo2 libcairo2-dev pari-gp \
         libgirepository1.0-dev libhdf5-dev python3 python3-pip \
         python3-venv python3-build python3-setuptools \
-        python3-dotenv python3-wheel libtool build-essential \
-        autoconf linux-headers-$(uname -r) ccache cppcheck \
-        tar npm flex bison dkms ninja-build 7zip gzip; do
+        python3-dotenv python3-wheel python3-mysql.connector \
+	libtool build-essential autoconf linux-headers-$(uname -r) \
+ 	ccache cppcheck tar npm flex bison dkms ninja-build 7zip gzip; do
     apt install -y $i
     while [ $? -ne 0 ]; do
         echo "Error installing $i. Retrying..."

@@ -7,13 +7,13 @@ qiskit-addon-cutting>=0.10.0
 qiskit-addon-mpf>=0.3.0
 qiskit-addon-obp>=0.3.0
 qiskit-addon-utils>=0.1.1
-qiskit-aer>=0.17.1
+qiskit-aer>=0.17.2
 qiskit-basis-constructor>=0.1.0
-qiskit-code-assistant-jupyterlab>=0.6.0
+qiskit-code-assistant-jupyterlab>=0.7.0
 qiskit-ibm-provider>=0.11.0
-qiskit-ibm-runtime>=0.41.0
-qiskit-ibm-transpiler>=0.13.1
-qiskit-machine-learning>=0.8.3
+qiskit-ibm-runtime>=0.42.0
+qiskit-ibm-transpiler>=0.14.3
+qiskit-machine-learning>=0.8.4
 qiskit-qasm3-import>=0.6.0
 qiskit-rng>=0.2.2
 qiskit-terra>=0.46.3
@@ -51,17 +51,17 @@ jupyterlab-pytutor>=0.2.0
 jupyterlab-skip-traceback>=5.1.0
 jupyterlab-spreadsheet-editor>=0.7.2
 jupyterlab-vega2>=3.2.0
-jupyter-lsp>=2.2.6
+jupyter-lsp>=2.3.0
 jupyter-packaging>=0.12.3
-jupyter-server>=2.16.0
+jupyter-server>=2.17.0
 jupyter-server-mathjax>=0.2.6
 lckr_jupyterlab_variableinspector>=3.2.4
 
 # JupyterHub + MySQL Authentication
-jupyterhub>=5.3.0
+jupyterhub>=5.4.0
 jupyterhub-nativeauthenticator>=1.3.0
-PyMySQL>=1.1.1
-SQLAlchemy>=2.0.42
+PyMySQL>=1.1.2
+SQLAlchemy>=2.0.43
 onetimepass>=1.0.1
 
 # Jupyter language kernel

@@ -29,8 +29,12 @@ for i in openssl pwgen git nano nodejs yarn automake gcc \
     done
 done
 
-echo -e "Installing NPM Packages"
-npm install -g configurable-http-proxy
+echo -e "Installing configurable-http-proxy"
+pip install configurable-http-proxy --default-timeout=360 --break-system-packages --ignore-installed
+while [ $? -ne 0 ]; do
+    echo -e -n "Error while installing configurable-http-proxy. Retrying...";
+    pip install configurable-http-proxy --default-timeout=360 --break-system-packages --ignore-installed;
+done
 
 echo -e "Installing base packages"
 pip install -r ./.global/pip_base.txt --default-timeout=360 --break-system-packages --ignore-installed

@@ -33,7 +33,7 @@ for i in openssl pwgen git nodejs npm yarn gcc \
 done
 
 echo -e "Installing Miniconda3"
-curl -sSL https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-$ARCH.sh -o /tmp/miniconda.sh
+curl -SL https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-$ARCH.sh -o /tmp/miniconda.sh
 if [ $? -ne 0 ]; then
     echo "Error downloading Miniconda3 installer. Exiting..."
     exit 1
@@ -46,6 +46,8 @@ if [ $? -ne 0 ]; then
 fi
 
 rm -rf /tmp/miniconda.sh
+conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
+conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 
 conda install -y python=3
 if [ $? -ne 0 ]; then

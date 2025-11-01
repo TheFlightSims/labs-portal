@@ -32,3 +32,8 @@ done
 # javascript
 npm install -g --unsafe-perm ijavascript
 ijsinstall --install=global
+
+conda clean -a -y
+if [ $? -ne 0 ]; then
+    echo "Warning: Error cleaning Conda cache."
+fi

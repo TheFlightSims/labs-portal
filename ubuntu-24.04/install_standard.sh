@@ -4,23 +4,26 @@ set -euo pipefail
 trap 'echo "Error occurred at line ${LINENO} of ${BASH_SOURCE[0]}. Exiting..."; exit 1' ERR
 
 CURR_DIR="$(cd "$(dirname "$0")" && pwd)"
+ARCH=$(uname -m)
 
 if [ "$EUID" -ne 0 ]; then
 	echo "Please run as root"
 	exit 1
 fi
 
+if [ ps --no-headers -o comm 1 | grep -q systemd ]; then
+    echo "Systemd detected."
+else
+    echo "This installer requires systemd. Exiting..."
+    exit 1
+fi
+
 echo -e "Updating local APT Repos"
 apt update && apt full-upgrade -y
 
-for i in openssl pwgen git nano nodejs yarn automake gcc \
-        g++ gdb make cmake zip libcurl4-gnutls-dev sox \
-        librtmp-dev ffmpeg libcairo2 libcairo2-dev pari-gp \
-        libgirepository1.0-dev libhdf5-dev python3 python3-pip \
-        python3-venv python3-build python3-setuptools \
-        python3-dotenv python3-wheel python3-mysqldb libtool \
-	build-essential autoconf linux-headers-$(uname -r) \
- 	ccache cppcheck tar npm flex bison dkms ninja-build 7zip gzip; do
+for i in openssl pwgen git nodejs npm yarn gcc \
+        g++ make cmake zip libtool build-essential \
+		autoconf tar 7zip gzip; do
     apt install -y $i
     while [ $? -ne 0 ]; do
         echo "Error installing $i. Retrying..."
@@ -29,18 +32,45 @@ for i in openssl pwgen git nano nodejs yarn automake gcc \
     done
 done
 
+echo -e "Installing Miniconda3"
+curl -sSL https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-$ARCH.sh -o /tmp/miniconda.sh
+if [ $? -ne 0 ]; then
+    echo "Error downloading Miniconda3 installer. Exiting..."
+    exit 1
+fi
+
+bash /tmp/miniconda.sh -bfp /usr/local
+if [ $? -ne 0 ]; then
+    echo "Error installing Miniconda3. Exiting..."
+    exit 1
+fi
+
+rm -rf /tmp/miniconda.sh
+
+conda install -y python=3
+if [ $? -ne 0 ]; then
+    echo "Error installing Python 3 via Conda. Exiting..."
+    exit 1
+fi
+
+conda update --all -y
+if [ $? -ne 0 ]; then
+    echo "Error updating Conda packages. Exiting..."
+    exit 1
+fi
+
 echo -e "Installing configurable-http-proxy"
-pip install configurable-http-proxy --default-timeout=360 --break-system-packages --ignore-installed
+pip install configurable-http-proxy --default-timeout=300 --break-system-packages --ignore-installed
 while [ $? -ne 0 ]; do
     echo -e -n "Error while installing configurable-http-proxy. Retrying...";
-    pip install configurable-http-proxy --default-timeout=360 --break-system-packages --ignore-installed;
+    pip install configurable-http-proxy --default-timeout=300 --break-system-packages --ignore-installed;
 done
 
 echo -e "Installing base packages"
-pip install -r ./.global/pip_base.txt --default-timeout=360 --break-system-packages --ignore-installed
+pip install -r ./.global/pip_base.txt --default-timeout=300 --break-system-packages --ignore-installed
 while [ $? -ne 0 ]; do
     echo -e -n "Error while installing base packages. Retrying...";
-    pip install -r ./.global/pip_base.txt --default-timeout=360 --break-system-packages --ignore-installed;
+    pip install -r ./.global/pip_base.txt --default-timeout=300 --break-system-packages --ignore-installed;
 done
 
 mkdir -p /etc/labs_portal/

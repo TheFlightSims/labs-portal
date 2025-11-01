@@ -63,6 +63,7 @@ jupyterhub-nativeauthenticator>=1.3.0
 PyMySQL>=1.1.2
 SQLAlchemy>=2.0.43
 onetimepass>=1.0.1
+PyMySQL>=1.1.0
 
 # Jupyter language kernel
 jupyter-cpp-kernel>=1.0.0a9

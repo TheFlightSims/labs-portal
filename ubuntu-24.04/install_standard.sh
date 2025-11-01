@@ -23,7 +23,7 @@ apt update && apt full-upgrade -y
 
 for i in openssl pwgen git nodejs npm yarn gcc \
         g++ make cmake zip libtool build-essential \
-		autoconf tar 7zip gzip; do
+		autoconf tar gzip nano; do
     apt install -y $i
     while [ $? -ne 0 ]; do
         echo "Error installing $i. Retrying..."
@@ -48,6 +48,8 @@ fi
 rm -rf /tmp/miniconda.sh
 conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
 conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
+conda config --add channels conda-forge
+conda config --set channel_priority strict
 
 conda install -y python=3
 if [ $? -ne 0 ]; then
@@ -55,25 +57,25 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+echo -e "Installing configurable-http-proxy"
+npm i -g configurable-http-proxy --unsafe-perm
+while [ $? -ne 0 ]; do
+    echo -e -n "Error while installing configurable-http-proxy. Retrying...";
+    npm i -g configurable-http-proxy --unsafe-perm;
+done
+
+echo -e "Installing base packages"
+pip install -r ./.global/pip_base.txt --default-timeout=300 --ignore-installed
+while [ $? -ne 0 ]; do
+    echo -e -n "Error while installing base packages. Retrying...";
+    pip install -r ./.global/pip_base.txt --default-timeout=300 --ignore-installed;
+done
+
 conda update --all -y
 if [ $? -ne 0 ]; then
     echo "Error updating Conda packages. Exiting..."
     exit 1
 fi
-
-echo -e "Installing configurable-http-proxy"
-pip install configurable-http-proxy --default-timeout=300 --break-system-packages --ignore-installed
-while [ $? -ne 0 ]; do
-    echo -e -n "Error while installing configurable-http-proxy. Retrying...";
-    pip install configurable-http-proxy --default-timeout=300 --break-system-packages --ignore-installed;
-done
-
-echo -e "Installing base packages"
-pip install -r ./.global/pip_base.txt --default-timeout=300 --break-system-packages --ignore-installed
-while [ $? -ne 0 ]; do
-    echo -e -n "Error while installing base packages. Retrying...";
-    pip install -r ./.global/pip_base.txt --default-timeout=300 --break-system-packages --ignore-installed;
-done
 
 mkdir -p /etc/labs_portal/
 

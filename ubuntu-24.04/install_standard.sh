@@ -77,6 +77,11 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+conda clean -a -y
+if [ $? -ne 0 ]; then
+    echo "Warning: Error cleaning Conda cache."
+fi
+
 mkdir -p /etc/labs_portal/
 
 echo -e "Creating authenticator"
@@ -118,7 +123,8 @@ echo -e "Copying standard configurations"
 cp $CURR_DIR/res/config.py /etc/labs_portal/config.py
 cp $CURR_DIR/res/.env /etc/labs_portal/.env
 
-chmod 700 /etc/labs_portal
+chmod 600 -R /etc/labs_portal
+
 if [ $? -eq 0 ]; then
     echo "[LABS PORTAL CF CP] Configuration copying is finished."
 else

@@ -51,7 +51,8 @@ db_driver:          str = environ.get("JHUB_DB_DRIVER").strip()
 db_type:            str = environ.get("JHUB_DB_TYPE").strip()
 
 # Enable JupyterHub debugging
-db_debug: bool = bool(environ.get("JHUB_DEBUG").strip())
+bool_debug: bool = bool(environ.get("JHUB_DEBUG").strip())
+db_debug: str = "DEBUG" if bool_debug == True else "INFO"
 ##################################################################################################
 
 ##################################################################################################
@@ -110,7 +111,6 @@ c.NativeAuthenticator.allow_self_approval_for = r'\b[A-Za-z0-9._%+-]+@(homelab\.
 c.NativeAuthenticator.secret_key = randomword(44)
 c.NativeAuthenticator.allow_2fa = True
 
-
 #------------------------------------------------------------------------------
 # Application(SingletonConfigurable) configuration
 #------------------------------------------------------------------------------
@@ -127,7 +127,7 @@ c.NativeAuthenticator.allow_2fa = True
 ## Set the log level by value or name.
 #  Choices: any of [0, 10, 20, 30, 40, 50, 'DEBUG', 'INFO', 'WARN', 'ERROR', 'CRITICAL']
 #  Default: 30
-c.Application.log_level = "DEBUG" if db_debug else "INFO"
+c.Application.log_level = db_debug
 
 ## Configure additional log handlers.
 #  

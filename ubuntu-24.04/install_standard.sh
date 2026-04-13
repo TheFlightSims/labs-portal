@@ -22,8 +22,7 @@ echo -e "Updating local APT Repos"
 apt update && apt full-upgrade -y
 
 for i in openssl pwgen git nodejs npm yarn gcc \
-        g++ make cmake zip libtool build-essential \
-		autoconf tar gzip nano; do
+        g++ make zip libtool tar gzip; do
     apt install -y $i
     while [ $? -ne 0 ]; do
         echo "Error installing $i. Retrying..."

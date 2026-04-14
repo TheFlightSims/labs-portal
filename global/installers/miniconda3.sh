@@ -24,6 +24,8 @@ fi
 ################################
 # Prepare conda package manager
 
+cd "$SCRIPT_DIR"
+
 ## Download the installer
 echo "Installing Miniconda3"
 curl -SL https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-$ARCH.sh \
@@ -81,4 +83,4 @@ if [ $? -ne 0 ]; then
 fi
 ################################
 
-echo "Install Miniconda 3 completed"
+echo "[Labs Portal] Install Miniconda 3 completed"

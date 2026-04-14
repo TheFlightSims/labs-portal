@@ -14,19 +14,19 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ################################
 # Running some checks
 if [ "$EUID" -ne 0 ]; then
-    echo "Please run as root"
+    echo "Please run this script with sudo or as root."
     exit 1
 fi
 
-if [[ "$SCRIPT_DIR" == *" "* ]]; then
-    echo "The directory name '$SCRIPT_DIR' contains spaces."
+if [[ "$SCRIPT_DIR" =~ [[:space:]]|[!@#$%^&*()] ]]; then
+    echo "The directory name '$SCRIPT_DIR' contains invalid characters."
     exit 1
 fi
 
 if  [ ! -f "$SCRIPT_DIR/global/tutorials-notebooks/_is_cloning_properly" ] || \
-[ ! -f "$SCRIPT_DIR/global/web-portal/_is_cloning_properly" ]; then
-    echo "Failed to check the current git status. Failing the installer"
-    exit 1
+    [ ! -f "$SCRIPT_DIR/global/web-portal/_is_cloning_properly" ]; then
+        echo "Failed to check the current git status. Failing the installer"
+        exit 1
 fi
 ################################
 
@@ -118,4 +118,4 @@ if [ $? -ne 0 ]; then
 fi
 ################################
 
-echo "The installation is finished!"
+echo "[Labs Portal] The installation is finished!"

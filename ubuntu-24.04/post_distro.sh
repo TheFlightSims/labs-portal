@@ -9,14 +9,14 @@ trap 'echo "Error occurred at line ${LINENO} of ${BASH_SOURCE[0]}. "; exit 1' ER
 ################################
 # Running some checks
 if [ "$EUID" -ne 0 ]; then
-	echo "Please run as root"
-	exit 1
+    echo "Please run this script with sudo or as root."
+    exit 1
 fi
 ################################
 
 ################################
 # Enable Systemd service
-if [ ps --no-headers -o comm 1 | grep -q systemd ]; then
+if ps --no-headers -o comm 1 | grep -q systemd; then
     echo -e "Installing labs_portal service..."
     cat <<EOF | tee /etc/systemd/system/labs-portal.service
 [Unit]
@@ -26,7 +26,7 @@ After=network.target
 [Service]
 Type=simple
 WorkingDirectory=/etc/labs-portal
-ExecStart=/usr/bin/python3 jupyterhub -f /etc/labs-portal/config.py
+ExecStart=/usr/local/bin/python3 jupyterhub -f /etc/labs-portal/config.py
 Restart=on-failure
 
 [Install]
@@ -55,4 +55,4 @@ if [ $? -ne 0 ]; then
 fi
 ################################
 
-echo "Post installation for distro has been completed!"
+echo "[Ubuntu 24.04 LTS] Post installation has been completed!"

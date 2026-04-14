@@ -14,8 +14,8 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ################################
 # Running some checks
 if [ "$EUID" -ne 0 ]; then
-	echo "Please run as root"
-	exit 1
+    echo "Please run this script with sudo or as root."
+    exit 1
 fi
 ################################
 
@@ -47,4 +47,4 @@ if [ $? -ne 0 ]; then
 fi
 ################################
 
-echo "Prepare for distro has been completed!"
+echo "[Ubuntu 24.04 LTS] Pre-installation has been completed!"

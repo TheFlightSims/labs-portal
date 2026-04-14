@@ -25,4 +25,4 @@ if [ $? -ne 0 ]; then
 fi
 ################################
 
-echo "Install NodeJS package has completed!"
+echo "[Labs Portal] Install NodeJS package has completed!"

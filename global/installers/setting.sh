@@ -86,4 +86,4 @@ done
 chmod -R 740 "$CONF_FOLDER/tutorials-notebooks"
 ################################
 
-echo "Copy settings completed!"
+echo "[Labs Portal] Copy settings completed!"

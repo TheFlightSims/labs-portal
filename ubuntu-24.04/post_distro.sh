@@ -41,5 +41,18 @@ EOF
     fi
 fi
 
+# Clean-up pacakges
+apt autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+if [ $? -ne 0 ]; then
+    echo "Failed to clean-up apt packages"
+fi
 
+conda clean --all -y
+if [ $? -ne 0 ]; then
+    echo "Failed to clean-up conda packages"
+fi
 ################################
+
+echo "Post installation for distro has been completed!"

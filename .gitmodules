@@ -1,6 +1,6 @@
-[submodule ".global/tutorials-notebooks"]
-	path = .global/tutorials-notebooks
+[submodule "global/tutorials-notebooks"]
+	path = global/tutorials-notebooks
 	url = https://github.com/tfslabs/labs-portal-example-notebooks.git
-[submodule ".global/web-portal"]
-	path = .global/web-portal
+[submodule "global/web-portal"]
+	path = global/web-portal
 	url = https://github.com/tfslabs/labs-portal-web-portal.git

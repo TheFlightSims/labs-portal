@@ -1,0 +1,11 @@
+# JupyterLab Core + Extensions
+jupyter>=1.1.1
+jupyter-server>=2.17.0
+
+# JupyterHub + MySQL Authentication
+jupyterhub>=5.4.4
+jupyterhub-nativeauthenticator>=1.3.0
+PyMySQL>=1.1.2
+SQLAlchemy>=2.0.49
+onetimepass>=1.0.1
+PyMySQL>=1.1.2

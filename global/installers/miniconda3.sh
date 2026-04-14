@@ -16,8 +16,8 @@ export PATH="/usr/local/bin:$PATH"
 ################################
 # Running some checks
 if [ "$EUID" -ne 0 ]; then
-	echo "Please run as root"
-	exit 1
+    echo "Please run this script with sudo or as root."
+    exit 1
 fi
 ################################
 
@@ -43,6 +43,12 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 rm -rf /tmp/miniconda.sh
+
+## Check conda binary
+if ! command -v conda &> /dev/null; then
+    echo "Conda is not installed or not in PATH."
+    exit 1
+fi
 
 ## Prepare conda environment
 conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main

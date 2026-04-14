@@ -67,8 +67,8 @@ cp -TR "$SCRIPT_DIR/../tutorials-notebooks" "$CONF_FOLDER/tutorials-notebooks"
 echo -e "Installing Login Web Templates..."
 rm -rf "$JHUB_CONF/*"
 cp -TR "$SCRIPT_DIR/../web-portal/hub-login" "$CONF_FOLDER/web"
-ln -s "$CONF_FOLDER/web/templates" "$JHUB_CONF/templates"
-ln -s "$CONF_FOLDER/web/base/static" "$JHUB_CONF/static"
+ln -sf "$CONF_FOLDER/web/templates" "$JHUB_CONF/templates"
+ln -sf "$CONF_FOLDER/web/base/static" "$JHUB_CONF/static"
 
 ## Copy configurations
 echo -e "Copying standard configurations"
